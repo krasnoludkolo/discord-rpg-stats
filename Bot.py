@@ -4,6 +4,7 @@ import os
 from discord.ext import commands
 
 from cogs.RabbinCog import RabbinCog
+from cogs.StatsCog import StatsCog
 
 
 async def run():
@@ -17,6 +18,7 @@ class Bot(commands.Bot):
             command_prefix='!'
         )
         self.add_cog(RabbinCog(self))
+        self.add_cog(StatsCog(self))
 
     async def on_ready(self):
         print('Logged in as')
