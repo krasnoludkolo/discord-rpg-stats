@@ -3,8 +3,14 @@ import os
 
 from discord.ext import commands
 
-from cogs.RabbinCog import RabbinCog
-from cogs.StatsCog import StatsCog
+from cogs.activity_cog import ActivityCog
+from cogs.rabbin_cog import RabbinCog
+from cogs.stats_cog import StatsCog
+
+
+def main():
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(run())
 
 
 async def run():
@@ -19,13 +25,11 @@ class Bot(commands.Bot):
         )
         self.add_cog(RabbinCog(self))
         self.add_cog(StatsCog(self))
+        self.add_cog(ActivityCog(self))
 
     async def on_ready(self):
-        print('Logged in as')
-        print(self.user.name)
-        print(self.user.id)
-        print('------')
+        print(f'Logged in as {self.user.name} id={self.user.id}')
 
 
-loop = asyncio.get_event_loop()
-loop.run_until_complete(run())
+if __name__ == '__main__':
+    main()

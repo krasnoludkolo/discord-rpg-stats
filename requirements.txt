@@ -2,3 +2,7 @@ discord.py >= 1.5.1
 asyncpg~=0.21.0
 discord~=1.0.1
 requests >= 2.24.0
+confluent-kafka==1.9.0
+sqlalchemy==1.4.39
+psycopg2-binary==2.9.3
+dataclasses-sql==0.3.0

@@ -1,8 +1,7 @@
 from discord.ext import commands
 from discord.ext.commands import Context
 
-from controllers.YesNoController import YesNoController
-from utils.ErrorMessages import ErrorMessages
+from controllers.yes_no_controller import YesNoController
 
 
 class RabbinCog(commands.Cog):
@@ -18,4 +17,3 @@ class RabbinCog(commands.Cog):
     @rabbin.error
     async def rabbin_error(self, ctx, error):
         print(f'Error wywolany przez {ctx.author.name}: {error}')
-        await ctx.send(ErrorMessages.get_random_error_message())
