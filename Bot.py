@@ -3,6 +3,7 @@ import os
 
 from discord.ext import commands
 
+from cogs.abstract_cog import AbstractCog
 from cogs.activity_cog import ActivityCog
 from cogs.rabbin_cog import RabbinCog
 from cogs.stats_cog import StatsCog
@@ -26,6 +27,7 @@ class Bot(commands.Bot):
         self.add_cog(RabbinCog(self))
         self.add_cog(StatsCog(self))
         self.add_cog(ActivityCog(self))
+        self.add_cog(AbstractCog(self))
 
     async def on_ready(self):
         print(f'Logged in as {self.user.name} id={self.user.id}')
