@@ -15,7 +15,6 @@ def main():
 
 
 async def run():
-    print('Starting bot...')
     bot = Bot()
     await bot.start(os.environ.get('DISCORD_TOKEN'))
 

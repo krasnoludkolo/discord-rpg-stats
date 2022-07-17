@@ -23,7 +23,7 @@ class DbActivityRepository:
     def __init__(self) -> None:
         self.db = {}
         url = self.__read_url()
-        self.engine = create_engine(url)
+        self.engine = create_engine(url, echo=True)
         meta = MetaData(bind=self.engine)
         MetaData.reflect(meta)
         self.activity_table = Table(
