@@ -65,7 +65,8 @@ class DbActivityRepository:
             index_elements=self.primary_keys,
             set_=dict(
                 voice_activity=statement.excluded.voice_activity + activity_table.c.voice_activity,
-                text_activity=statement.excluded.text_activity + activity_table.c.text_activity
+                text_activity=statement.excluded.text_activity + activity_table.c.text_activity,
+                last_activity=statement.excluded.last_activity
             )
         )
         self.engine.execute(statement)
