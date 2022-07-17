@@ -36,7 +36,7 @@ class DbStatsRepository:
     def __init__(self) -> None:
         self.db = {}
         url = self.__read_url()
-        self.engine = create_engine(url, echo=True)
+        self.engine = create_engine(url)
         meta = MetaData(bind=self.engine)
         MetaData.reflect(meta)
         self.report_table = Table(
