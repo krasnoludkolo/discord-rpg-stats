@@ -25,7 +25,7 @@ class Bot(commands.Bot):
             command_prefix='!'
         )
         self.add_cog(RabbinCog(self))
-        self.add_cog(StatsCog(self))
+        # self.add_cog(StatsCog(self))
         self.add_cog(ActivityCog(self))
         self.add_cog(AbstractCog(self))
 
