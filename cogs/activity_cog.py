@@ -31,5 +31,5 @@ class ActivityCog(commands.Cog):
         if type(channel) == DMChannel:
             print(f"DM: {message.author}:{message.content}")
         else:
-            print(f"{channel.name} {message.author}:{message.content}")
+            print(f"{channel.name} {message.author}")
             self.activityRepository.add_text_activity(message.author.id)
