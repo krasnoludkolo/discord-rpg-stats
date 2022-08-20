@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime, date
 
 import sqlalchemy
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, VARCHAR, inspect
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, VARCHAR, inspect, Boolean
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 
 from logic.model import PlayerId
@@ -16,6 +16,7 @@ class ActivityDB:
     voice_activity: int
     text_activity: int
     last_activity: datetime
+    is_bot: bool
 
 
 class DbActivityRepository:
@@ -33,6 +34,7 @@ class DbActivityRepository:
             Column('voice_activity', Integer),
             Column('text_activity', Integer),
             Column('last_activity', TIMESTAMP(timezone=True)),
+            Column('is_bot', Boolean, default=False),
             extend_existing=True
         )
         meta.create_all(self.engine)
@@ -43,19 +45,21 @@ class DbActivityRepository:
         final_url = url_from_env.replace('postgres', 'postgresql')
         return final_url
 
-    def add_voice_activity(self, player_id: PlayerId):
-        self.__save_activity(player_id, new_voice_activity=1)
+    def add_voice_activity(self, player_id: PlayerId, is_bot: bool):
+        self.__save_activity(player_id, new_voice_activity=1, is_bot=is_bot)
 
-    def add_text_activity(self, player_id: PlayerId):
-        self.__save_activity(player_id, new_text_activity=1)
+    def add_text_activity(self, player_id: PlayerId, is_bot: bool):
+        self.__save_activity(player_id, new_text_activity=1, is_bot=is_bot)
 
-    def __save_activity(self, player_id: PlayerId, new_voice_activity: int = 0, new_text_activity: int = 0):
+    def __save_activity(self, player_id: PlayerId, is_bot: bool, new_voice_activity: int = 0,
+                        new_text_activity: int = 0):
         activity_db = ActivityDB(
             player_id=str(player_id),
             day=date.today(),
             voice_activity=new_voice_activity,
             text_activity=new_text_activity,
-            last_activity=datetime.now()
+            last_activity=datetime.now(),
+            is_bot=is_bot
         )
         activity_table = self.activity_table
 

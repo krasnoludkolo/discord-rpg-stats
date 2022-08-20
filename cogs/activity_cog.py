@@ -18,7 +18,7 @@ class ActivityCog(commands.Cog):
             log = new_channel.name
             if old_channel is None:
                 log = f'joined {new_channel}'
-                self.activityRepository.add_voice_activity(member.id)
+                self.activityRepository.add_voice_activity(member.id, member.bot)
             if old_channel and new_channel.name == old_channel.name:
                 log = f'{new_channel} - status updated'
         else:
@@ -28,8 +28,9 @@ class ActivityCog(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         channel = message.channel
+        author = message.author
         if type(channel) == DMChannel:
-            print(f"DM: {message.author}:{message.content}")
+            print(f"DM: {author}:{message.content}")
         else:
-            print(f"{channel.name} {message.author}")
-            self.activityRepository.add_text_activity(message.author.id)
+            print(f"{channel.name} {author}")
+            self.activityRepository.add_text_activity(author.id, author.bot)
