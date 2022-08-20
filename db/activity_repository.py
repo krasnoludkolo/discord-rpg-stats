@@ -70,7 +70,8 @@ class DbActivityRepository:
             set_=dict(
                 voice_activity=statement.excluded.voice_activity + activity_table.c.voice_activity,
                 text_activity=statement.excluded.text_activity + activity_table.c.text_activity,
-                last_activity=statement.excluded.last_activity
+                last_activity=statement.excluded.last_activity,
+                is_bot=statement.excluded.is_bot
             )
         )
         self.engine.execute(statement)
